@@ -1,0 +1,12 @@
+@base = http://127.0.0.1:8000
+
+### link shortener
+POST {{base}}/api/links
+Content-Type: application/json
+
+{
+    "target_url": "https://laravel.com/"
+}
+
+### GET target url
+GET {{base}}/rTDV35
