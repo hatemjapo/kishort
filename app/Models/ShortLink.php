@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class ShortLink extends Model
 {
@@ -11,10 +12,10 @@ class ShortLink extends Model
      */
     protected $table = 'short_links';
 
-    /**
-     * @var string
-     */
-    protected $primaryKey = 'short_link_id';
+    protected $fillable = ['code', 'target_url', 'user_id'];
 
-    protected $fillable = ['code', 'target_url'];
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
 }
