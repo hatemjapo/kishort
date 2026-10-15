@@ -6,8 +6,14 @@ serve:
 dev:
 	composer run dev
 
-migrate:
+migration:
 	php artisan migrate
 
 routes:
 	php artisan route:list
+
+controller:
+	php artisan make:controller
+
+tinker:
+	php artisan tinker
