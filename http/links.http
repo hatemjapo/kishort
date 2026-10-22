@@ -1,12 +1,51 @@
 @base = http://127.0.0.1:8000
+@token = 3|WJgbmpygwEAlt1lJ9TcyE9UpSMHu2k7xrJzj57bY577f8e36
+
+### register
+POST {{base}}/api/register
+Content-Type: application/json
+
+{
+    "name": "test",
+    "email": "test@test.test",
+    "password": "aaaaaaaa"
+}
+
+### login
+POST {{base}}/api/login
+Content-Type: application/json
+
+{
+    "email": "test@test.test",
+    "password": "aaaaaaaa"
+}
+
 
 ### link shortener
 POST {{base}}/api/links
 Content-Type: application/json
+Authorization: Bearer {{token}}
 
 {
     "target_url": "https://laravel.com/"
 }
 
+### link shortener update
+PUT {{base}}/api/links/3
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+    "target_url": "https://youtube.com/"
+}
+
 ### GET target url
 GET {{base}}/rTDV35
+
+### GET all urls from logged in user
+GET {{base}}/api/links
+Authorization: Bearer {{token}}
+
+### GET one link
+GET {{base}}/api/links/2
+Authorization: Bearer {{token}}
