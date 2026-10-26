@@ -14,11 +14,12 @@ Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
 
 Route::middleware('auth:sanctum')->group(function () {
+    Route::get('/links', [ShortLinkController::class, 'index']);
+    Route::post('/links', [ShortLinkController::class, 'store']);
+
     Route::get('/links/{id}', [ShortLinkController::class, 'show']);
     Route::put('/links/{id}', [ShortLinkController::class, 'update']);
     Route::delete('/links/{id}', [ShortLinkController::class, 'destroy']);
-    Route::get('/links', [ShortLinkController::class, 'index']);
-
-    Route::post('/links', [ShortLinkController::class, 'store']);
-
+    
+    Route::patch('/links/{id}/state', [ShortLinkController::class, 'changeState']);
 });

@@ -1,5 +1,8 @@
 .PHONY: help serve dev migrate fresh seed test tinker cs routes
 
+install:
+	composer install && npm install
+
 serve:
 	php artisan serv
 

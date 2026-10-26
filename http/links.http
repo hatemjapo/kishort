@@ -1,5 +1,5 @@
 @base = http://127.0.0.1:8000
-@token = 3|WJgbmpygwEAlt1lJ9TcyE9UpSMHu2k7xrJzj57bY577f8e36
+@token = 
 
 ### register
 POST {{base}}/api/register
@@ -31,16 +31,25 @@ Authorization: Bearer {{token}}
 }
 
 ### link shortener update
-PUT {{base}}/api/links/3
+PUT {{base}}/api/links/1
 Content-Type: application/json
 Authorization: Bearer {{token}}
 
 {
-    "target_url": "https://youtube.com/"
+    "target_url": "ftp://youtube.com/"
+}
+
+### change active state of link
+PATCH {{base}}/api/links/1/state
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+    "is_active": false
 }
 
 ### GET target url
-GET {{base}}/rTDV35
+GET {{base}}/Ew5j8GTuRpmWIxwc
 
 ### GET all urls from logged in user
 GET {{base}}/api/links
