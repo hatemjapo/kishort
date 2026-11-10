@@ -37,7 +37,7 @@ class ShortLinkController extends Controller
         return (new ShortLinkResource($link))->response()->setStatusCode(201);
     }
 
-    public function redirect(string $code)
+    public function redirect(Request $request, string $code)
     {
         $link = ShortLink::where('code', $code)->first();
 
@@ -48,6 +48,8 @@ class ShortLinkController extends Controller
         if (!$link->isUsable()) {
             abort(410);
         }
+
+        $link->createClick($request);
 
         return redirect($link->target_url);
     }
@@ -100,6 +102,31 @@ class ShortLinkController extends Controller
         $link->save();
 
         return new ShortLinkResource($link);
+    }
+
+    public function getShortLinkStats(int $id): JsonResponse
+    {
+        $link = ShortLink::findOrFail($id);
+
+        $this->authorize('view', $link);
+
+        $clicksPerDay = $link->clicks()
+            ->selectRaw('DATE(created_at) as date, COUNT(*) as countedClicks')
+            ->groupBy('date')
+            ->pluck('countedClicks', 'date');
+
+        $referrer = $link->clicks()
+            ->selectRaw('referrer, COUNT(*) as countedClicks')
+            ->groupBy('referrer')
+            ->orderByDesc('countedClicks')
+            ->limit(10)
+            ->pluck('countedClicks', 'referrer');
+
+        return response()->json([
+            'total_clicks' => $link->clicks()->count(),
+            'clicks_per_day' => $clicksPerDay,
+            'top_referrer' => $referrer,
+        ]);
     }
 
     private function generateCode(): String

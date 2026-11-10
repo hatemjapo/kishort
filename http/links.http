@@ -1,5 +1,5 @@
 @base = http://127.0.0.1:8000
-@token = 
+@token = 2|qwywThZ0JaTAatA85tUoiDFkDzC65Rcf7gxBEFlG737005e2
 
 ### register
 POST {{base}}/api/register
@@ -57,4 +57,8 @@ Authorization: Bearer {{token}}
 
 ### GET one link
 GET {{base}}/api/links/2
+Authorization: Bearer {{token}}
+
+### GET shortlink stats
+GET {{base}}/api/links/2/stats
 Authorization: Bearer {{token}}
