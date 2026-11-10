@@ -123,4 +123,13 @@ return [
         'store' => env('APP_MAINTENANCE_STORE', 'database'),
     ],
 
+        /*
+    |--------------------------------------------------------------------------
+    | Register
+    |--------------------------------------------------------------------------
+    |
+    | Turns on or off registration. Can be set to true or false
+    |
+    */
+    'registration_enabled' => env('REGISTRATION_ENABLED', false),
 ];

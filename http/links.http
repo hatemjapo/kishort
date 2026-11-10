@@ -1,12 +1,64 @@
 @base = http://127.0.0.1:8000
+@token = 2|qwywThZ0JaTAatA85tUoiDFkDzC65Rcf7gxBEFlG737005e2
+
+### register
+POST {{base}}/api/register
+Content-Type: application/json
+
+{
+    "name": "test",
+    "email": "test@test.test",
+    "password": "aaaaaaaa"
+}
+
+### login
+POST {{base}}/api/login
+Content-Type: application/json
+
+{
+    "email": "test@test.test",
+    "password": "aaaaaaaa"
+}
+
 
 ### link shortener
 POST {{base}}/api/links
 Content-Type: application/json
+Authorization: Bearer {{token}}
 
 {
     "target_url": "https://laravel.com/"
 }
 
+### link shortener update
+PUT {{base}}/api/links/1
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+    "target_url": "ftp://youtube.com/"
+}
+
+### change active state of link
+PATCH {{base}}/api/links/1/state
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+    "is_active": false
+}
+
 ### GET target url
-GET {{base}}/rTDV35
+GET {{base}}/Ew5j8GTuRpmWIxwc
+
+### GET all urls from logged in user
+GET {{base}}/api/links
+Authorization: Bearer {{token}}
+
+### GET one link
+GET {{base}}/api/links/2
+Authorization: Bearer {{token}}
+
+### GET shortlink stats
+GET {{base}}/api/links/2/stats
+Authorization: Bearer {{token}}
