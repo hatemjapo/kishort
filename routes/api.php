@@ -22,4 +22,5 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::delete('/links/{id}', [ShortLinkController::class, 'destroy']);
     
     Route::patch('/links/{id}/state', [ShortLinkController::class, 'changeState']);
+    Route::get('/links/{id}/stats', [ShortLinkController::class, 'getShortLinkStats']);
 });

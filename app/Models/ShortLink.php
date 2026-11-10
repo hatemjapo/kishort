@@ -2,8 +2,11 @@
 
 namespace App\Models;
 
+use App\Jobs\RecordClickJob;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Http\Request;
 
 class ShortLink extends Model
 {
@@ -24,6 +27,11 @@ class ShortLink extends Model
     {
         return $this->belongsTo(User::class);
     }
+ 
+    public function clicks(): HasMany
+    {
+        return $this->hasMany(Clicks::class);
+    }
 
     public function isUsable(): bool
     {
@@ -36,6 +44,16 @@ class ShortLink extends Model
         }
 
         return true;
+    }
+
+    public function createClick(Request $request): void
+    {
+        RecordClickJob::dispatch(
+            $this->id,
+            $request->header('referer'),
+            $request->userAgent(),
+            $request->ip(),
+        );
     }
 
     protected function casts(): array
