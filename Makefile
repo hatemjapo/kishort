@@ -20,3 +20,6 @@ controller:
 
 tinker:
 	php artisan tinker
+
+test:
+	php artisan test
