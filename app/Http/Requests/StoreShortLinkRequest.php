@@ -32,7 +32,7 @@ class StoreShortLinkRequest extends FormRequest
                     $scheme = parse_url($value, PHP_URL_SCHEME);
 
                     if (!in_array($scheme, ['http', 'https'], true)) {
-                        fail('Only http or https urls are allowed');
+                        $fail('Only http or https urls are allowed');
                     }
                 },
             ],

@@ -59,7 +59,7 @@ class ShortLinkController extends Controller
         return ShortLinkResource::collection($request->user()->shortLinks);
     }
 
-    public function show(Request $request, int $id): JsonResponse
+    public function show(Request $request, int $id): ShortLinkResource
     {
         $link = ShortLink::findOrFail($id);
 
@@ -68,7 +68,7 @@ class ShortLinkController extends Controller
         return new ShortLinkResource($link);
     }
 
-    public function update(UpdateShortLinkRequest $request, int $id): JsonResponse
+    public function update(UpdateShortLinkRequest $request, int $id): ShortLinkResource
     {
         $validatedRequest = $request->validated();
 
